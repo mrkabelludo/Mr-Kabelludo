@@ -1,50 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mr Kabelludo - Marcação</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f7f7f7;
-      padding: 20px;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f2f2f2, #ffffff);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    .formulario {
-      background: white;
+    header {
+      background-color: #111;
+      color: white;
+      width: 100%;
       padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .container {
+      background: white;
+      margin-top: 40px;
+      padding: 25px;
+      border-radius: 12px;
       max-width: 400px;
-      margin: auto;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #ccc;
+      width: 90%;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 600;
     }
     input, select, button {
       width: 100%;
-      margin: 10px 0;
-      padding: 10px;
-      font-size: 16px;
+      padding: 12px;
+      margin-top: 8px;
+      border-radius: 8px;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      font-size: 16px;
     }
     button {
-      background-color: #007bff;
+      background-color: #28a745;
       color: white;
       font-weight: bold;
       border: none;
-      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
     }
     button:hover {
-      background-color: #0056b3;
+      background-color: #218838;
     }
     #mensagem {
       margin-top: 15px;
       font-weight: bold;
-      color: green;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <div class="formulario">
-    <h2>Marcação - Mr Kabelludo 💈</h2>
+  <header>Mr Kabelludo 💈</header>
+
+  <div class="container">
+    <h2>Fazer Marcação</h2>
 
     <label for="nome">Nome:</label>
     <input type="text" id="nome" placeholder="Seu nome" />
@@ -64,45 +88,41 @@
     <label for="horario">Horário:</label>
     <input type="time" id="horario" />
 
-    <button onclick="confirmarMarcacao()">Confirmar Marcação</button>
+    <button onclick="confirmarMarcacao()">💬 Confirmar via WhatsApp</button>
 
-    <p id="mensagem"></p>
+    <div id="mensagem"></div>
   </div>
 
   <script>
     function confirmarMarcacao() {
-      let nome = document.getElementById("nome").value.trim();
-      let servico = document.getElementById("servico").value;
-      let data = document.getElementById("data").value;
-      let horario = document.getElementById("horario").value;
-      let mensagemEl = document.getElementById("mensagem");
+      const nome = document.getElementById("nome").value.trim();
+      const servico = document.getElementById("servico").value;
+      const data = document.getElementById("data").value;
+      const horario = document.getElementById("horario").value;
+      const mensagemEl = document.getElementById("mensagem");
 
       if (!nome || !servico || !data || !horario) {
         mensagemEl.style.color = "red";
-        mensagemEl.innerText = "Por favor, preencha todos os campos.";
+        mensagemEl.textContent = "Por favor, preencha todos os campos.";
         return;
       }
 
-      // Montar mensagem para WhatsApp
-      let mensagemWhats = 
+      const mensagemWhats =
         `Olá, quero fazer uma marcação:\n` +
         `Nome: ${nome}\n` +
         `Serviço: ${servico}\n` +
         `Data: ${data}\n` +
         `Horário: ${horario}`;
 
-      // Número WhatsApp no formato internacional, sem +, só números
-      let numeroWhats = "258864817368";
-
-      // Criar URL encode da mensagem
-      let url = `https://wa.me/${numeroWhats}?text=${encodeURIComponent(mensagemWhats)}`;
+      const numero = "258864817368";
+      const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagemWhats)}`;
 
       mensagemEl.style.color = "green";
-      mensagemEl.innerText = "Redirecionando para o WhatsApp...";
-
-      // Abrir WhatsApp numa nova aba
-      window.open(url, "_blank");
+      mensagemEl.textContent = "Redirecionando para o WhatsApp...";
+      setTimeout(() => {
+        window.open(url, "_blank");
+      }, 1000);
     }
   </script>
 </body>
-</html>
+  </html>
